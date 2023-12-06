@@ -40,8 +40,7 @@
 					<div class="card-body"> 
                         <!-- Create query for event list-->
 						<h5 class="card-title"> Event </h5> 
-
-                        <a href="viewEvent.php" class="btn btn-primary">Event Details</a> <br>
+                        <input type="submit" value="Create Account" class="btn btn-danger" name="btn1">
 					</div> 
 				</div><br> 
 			</div> 
@@ -50,24 +49,6 @@
             ?>                
 		</div> 
 	</div> 
-
-    <?php 
-		if(isset($_POST["btn1"])) { 
-			include("connect.php"); 
-			$email=$_POST['email']; 
-			$psswrd=$_POST['psswrd']; 
-	
-            // configure query to check if email & password exist in database users.
-			$q="insert into testtable(name, 
-			ID,place,senior) 
-			values(2,3,4,5)"; 
-
-			mysqli_query($con,$q); 
-
-            // check for valid login before sending to home.
-			header("location:home.php");
-		} 
-	?>
 </body> 
 
 </html>

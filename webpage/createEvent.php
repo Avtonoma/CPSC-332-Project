@@ -69,7 +69,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create Account" class="btn btn-danger" name="btn1">
+                <input type="submit" value="Create Event" class="btn btn-danger" name="btn1">
             </div>
         </form>
     </div>

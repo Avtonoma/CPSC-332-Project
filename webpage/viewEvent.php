@@ -40,11 +40,7 @@
 					<div class="card-body"> 
 						<h5 class="card-title"> Event Name</h5>
                         <h6 class="card-body"> details </h6> 
-						<a href= 
-						"SubmitAbstract.php?id=<?php echo $qq['Id']; ?>"
-							class="card-link"> 
-							Submit Abstract 
-						</a> 
+                        <a href="submit.php" class="btn btn-group-sm">Submit Abstract</a> 
 						<a href= 
 						"delete.php?id=<?php echo $qq['Id']; ?>"
 							class="card-link"> 

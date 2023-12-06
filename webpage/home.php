@@ -25,7 +25,6 @@
 			<div class="col-lg-8"> 
 				<h1>Event Manager</h1> 
 				<a href="createEvent.php" class="btn btn-group-sm">Create Event</a> 
-				<a href="submit.php" class="btn btn-group-sm">Submit Abstract</a> 
 				<a href="Events.php" class="btn btn-group-sm">Join Events</a>
 				<hr> 
 				<h3>Your Events</h3>
