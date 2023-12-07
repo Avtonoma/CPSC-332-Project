@@ -4,7 +4,7 @@ DROP DATABASE IF EXISTS AEM;
 CREATE SCHEMA AEM;
 USE AEM;
 
-CREATE TABLE IF NOT EXISTS User
+CREATE TABLE IF NOT EXISTS Users
 (
     UserID INT(8) UNSIGNED NOT NULL,
     FirstName VARCHAR(255) NOT NULL,
@@ -23,14 +23,17 @@ CREATE TABLE IF NOT EXISTS Presenter
     LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     Institution VARCHAR(50) NOT NULL,
+    UserID INT(8) UNSIGNED NOT NULL,
 
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
 
     PRIMARY KEY (PresenterID)
 );
 
 CREATE TABLE IF NOT EXISTS KeynoteSpeaker
 (
+    PresenterID INT(8) UNSIGNED NOT NULL,
+
     FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
 
     KeynoteSpeakerID INT(8) UNSIGNED NOT NULL,
@@ -43,7 +46,9 @@ CREATE TABLE IF NOT EXISTS KeynoteSpeaker
 
 CREATE TABLE IF NOT EXISTS Organizer
 (
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    UserID INT(8) UNSIGNED NOT NULL,
+
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE IF NOT EXISTS FacultyMentor
@@ -53,8 +58,9 @@ CREATE TABLE IF NOT EXISTS FacultyMentor
     LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,
     Institution VARCHAR(50) NOT NULL,
+    UserID INT(8) UNSIGNED NOT NULL,
 
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
 
     PRIMARY KEY (MentorID)
 );
@@ -78,6 +84,7 @@ CREATE TABLE IF NOT EXISTS Abstract
     SubjectArea VARCHAR(50) NOT NULL,
     PresenterID INT(8) UNSIGNED NOT NULL,
     EventID INT(8) UNSIGNED NOT NULL,
+    ReviewerID INT(8) UNSIGNED NOT NULL,
 
     FOREIGN KEY (ReviewerID) REFERENCES Reviewer(ReviewerID),
 
@@ -86,6 +93,9 @@ CREATE TABLE IF NOT EXISTS Abstract
 
 CREATE TABLE IF NOT EXISTS Presents
 (
+    PresenterID INT(8) UNSIGNED NOT NULL,
+    AbstractID INT(8) UNSIGNED NOT NULL,
+    
     FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
     FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID)
 );
@@ -94,8 +104,9 @@ CREATE TABLE IF NOT EXISTS Sponsor
 (
     SponsorID INT(8) UNSIGNED NOT NULL,
     SponsorName VARCHAR(50) NOT NULL,
+    UserID INT(8) UNSIGNED NOT NULL,
     
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
 
     PRIMARY KEY (SponsorID)
 );
@@ -124,6 +135,9 @@ CREATE TABLE IF NOT EXISTS AEMEvent
     FacultyList VARCHAR(max) NOT NULL,
     SponsorList VARCHAR(max) NOT NULL,
     Venue VARCHAR(max) NOT NULL,
+    AbstractID INT(8) UNSIGNED NOT NULL,
+    SponsorID INT(8) UNSIGNED NOT NULL,
+    VenueID INT(8) UNSIGNED NOT NULL,
 
     FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID),
     FOREIGN KEY (SponsorID) REFERENCES Sponsor(SponsorID),
@@ -137,6 +151,9 @@ CREATE TABLE IF NOT EXISTS University
 (
     UniversityName VARCHAR(50) NOT NULL,
     UniversityID INT(8) UNSIGNED NOT NULL,
+    PresenterID INT(8) UNSIGNED NOT NULL,
+    MentorID INT(8) UNSIGNED NOT NULL,
+    EventName VARCHAR(50) NOT NULL,
     
     FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
     FOREIGN KEY (MentorID) REFERENCES Mentor(MentorID),
@@ -145,7 +162,10 @@ CREATE TABLE IF NOT EXISTS University
 
 CREATE TABLE IF NOT EXISTS Attenddee
 (
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    UserID INT(8) UNSIGNED NOT NULL,
+    EventName VARCHAR(50) NOT NULL,
+
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (EventName) REFERENCES AEMEvent(EventID)
 );
 
