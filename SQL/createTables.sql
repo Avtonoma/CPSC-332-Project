@@ -46,9 +46,12 @@ CREATE TABLE IF NOT EXISTS KeynoteSpeaker
 
 CREATE TABLE IF NOT EXISTS Organizer
 (
+    OrganizerID INT(8) UNSIGNED NOT NULL,
     UserID INT(8) UNSIGNED NOT NULL,
 
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    
+    PRIMARY KEY (OrganizerID)
 );
 
 CREATE TABLE IF NOT EXISTS FacultyMentor
@@ -135,13 +138,16 @@ CREATE TABLE IF NOT EXISTS AEMEvent
     FacultyList VARCHAR(255) NOT NULL,
     SponsorList VARCHAR(255) NOT NULL,
     Venue VARCHAR(255) NOT NULL,
+    PublicEvent BOOLEAN NOT NULL,
     AbstractID INT(8) UNSIGNED NOT NULL,
     SponsorID INT(8) UNSIGNED NOT NULL,
     VenueID INT(8) UNSIGNED NOT NULL,
+    OrganizerID INT(8) UNSIGNED NOT NULL,
 
     FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID),
     FOREIGN KEY (SponsorID) REFERENCES Sponsor(SponsorID),
     FOREIGN KEY (VenueID) REFERENCES Venue(VenueID),
+    FOREIGN KEY (OrganizerID) REFERENCES Organizer(OrganizerID),
 
     PRIMARY KEY (EventName)
 );
