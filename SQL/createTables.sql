@@ -16,6 +16,49 @@ CREATE TABLE IF NOT EXISTS User
     PRIMARY KEY (UserID)
 );
 
+CREATE TABLE IF NOT EXISTS Presenter
+(
+    PresenterID INT(8) UNSIGNED NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    Institution VARCHAR(50) NOT NULL,
+
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+
+    PRIMARY KEY (PresenterID)
+);
+
+CREATE TABLE IF NOT EXISTS KeynoteSpeaker
+(
+    FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
+
+    KeynoteSpeakerID INT(8) UNSIGNED NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY (PresenterID)
+);
+
+CREATE TABLE IF NOT EXISTS Organizer
+(
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE IF NOT EXISTS FacultyMentor
+(
+    MentorID INT(8) UNSIGNED NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    Institution VARCHAR(50) NOT NULL,
+
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+
+    PRIMARY KEY (MentorID)
+);
+
 CREATE TABLE IF NOT EXISTS Reviewer
 (
     ReviewerID INT(8) UNSIGNED NOT NULL,
@@ -39,6 +82,12 @@ CREATE TABLE IF NOT EXISTS Abstract
     FOREIGN KEY (ReviewerID) REFERENCES Reviewer(ReviewerID),
 
     PRIMARY KEY (AbstractID)
+);
+
+CREATE TABLE IF NOT EXISTS Presents
+(
+    FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
+    FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID)
 );
 
 CREATE TABLE IF NOT EXISTS Sponsor
@@ -77,15 +126,26 @@ CREATE TABLE IF NOT EXISTS AEMEvent
     Venue VARCHAR(max) NOT NULL,
 
     FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID),
-    FOREIGN KEY (SponsorID) RERFERENCES Sponsor(SponsorID),
+    FOREIGN KEY (SponsorID) REFERENCES Sponsor(SponsorID),
     FOREIGN KEY (VenueID) REFERENCES Venue(VenueID),
 
     PRIMARY KEY (EventName)
 );
 
+
+CREATE TABLE IF NOT EXISTS University
+(
+    UniversityName VARCHAR(50) NOT NULL,
+    UniversityID INT(8) UNSIGNED NOT NULL,
+    
+    FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
+    FOREIGN KEY (MentorID) REFERENCES Mentor(MentorID),
+    FOREIGN KEY (EventName) REFERENCES AEMEvent(EventName)
+);
+
 CREATE TABLE IF NOT EXISTS Attenddee
 (
-    FOREIGN KEY (UserID) References User(UserID),
-    FOREIGN KEY (EventName) References AEMEvent(EventID)
+    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (EventName) REFERENCES AEMEvent(EventID)
 );
 
