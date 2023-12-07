@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS Abstract
 (
     AbstractID INT(8) UNSIGNED NOT NULL,
     Title VARCHAR(20) NOT NULL,
-    Content VARCHAR(max) NOT NULL, /* Do we need this? What is this column? */
+    Content VARCHAR(255) NOT NULL, /* Do we need this? What is this column? */
     AbstractType VARCHAR(15) NOT NULL,
     SubjectArea VARCHAR(50) NOT NULL,
     PresenterID INT(8) UNSIGNED NOT NULL,
@@ -131,10 +131,10 @@ CREATE TABLE IF NOT EXISTS AEMEvent
     EndDate DATE NOT NULL,
     Capacity INT(3) UNSIGNED NOT NULL,
     AbstractDeadline DATE NOT NULL,
-    PresenterList VARCHAR(max) NOT NULL,
-    FacultyList VARCHAR(max) NOT NULL,
-    SponsorList VARCHAR(max) NOT NULL,
-    Venue VARCHAR(max) NOT NULL,
+    PresenterList VARCHAR(255) NOT NULL,
+    FacultyList VARCHAR(255) NOT NULL,
+    SponsorList VARCHAR(255) NOT NULL,
+    Venue VARCHAR(255) NOT NULL,
     AbstractID INT(8) UNSIGNED NOT NULL,
     SponsorID INT(8) UNSIGNED NOT NULL,
     VenueID INT(8) UNSIGNED NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS University
     EventName VARCHAR(50) NOT NULL,
     
     FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
-    FOREIGN KEY (MentorID) REFERENCES Mentor(MentorID),
+    FOREIGN KEY (MentorID) REFERENCES FacultyMentor(MentorID),
     FOREIGN KEY (EventName) REFERENCES AEMEvent(EventName)
 );
 
@@ -166,6 +166,6 @@ CREATE TABLE IF NOT EXISTS Attenddee
     EventName VARCHAR(50) NOT NULL,
 
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (EventName) REFERENCES AEMEvent(EventID)
+    FOREIGN KEY (EventName) REFERENCES AEMEvent(EventName)
 );
 
