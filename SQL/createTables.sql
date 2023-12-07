@@ -139,10 +139,8 @@ CREATE TABLE IF NOT EXISTS AEMEvent
     SponsorList VARCHAR(255),
     Venue VARCHAR(255) NOT NULL,
     PublicEvent BOOLEAN NOT NULL,
-    AbstractID VARCHAR(255) NOT NULL,
     OrganizerID INT(8) UNSIGNED NOT NULL,
 
-    FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID),
     FOREIGN KEY (OrganizerID) REFERENCES Organizer(OrganizerID),
 
     PRIMARY KEY (EventName)
@@ -162,7 +160,7 @@ CREATE TABLE IF NOT EXISTS University
     FOREIGN KEY (EventName) REFERENCES AEMEvent(EventName)
 );
 
-CREATE TABLE IF NOT EXISTS Attenddee
+CREATE TABLE IF NOT EXISTS Attendee
 (
     UserID INT(8) UNSIGNED NOT NULL,
     EventName VARCHAR(50) NOT NULL,
