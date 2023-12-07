@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS Reviewer
 
 CREATE TABLE IF NOT EXISTS Abstract
 (
-    AbstractID INT(8) UNSIGNED NOT NULL,
+    AbstractID VARCHAR(255) NOT NULL,
     Title VARCHAR(20) NOT NULL,
     Content VARCHAR(255) NOT NULL, /* Do we need this? What is this column? */
     AbstractType VARCHAR(15) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS Abstract
 CREATE TABLE IF NOT EXISTS Presents
 (
     PresenterID INT(8) UNSIGNED NOT NULL,
-    AbstractID INT(8) UNSIGNED NOT NULL,
+    AbstractID VARCHAR(255) NOT NULL,
     
     FOREIGN KEY (PresenterID) REFERENCES Presenter(PresenterID),
     FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID)
@@ -134,19 +134,15 @@ CREATE TABLE IF NOT EXISTS AEMEvent
     EndDate DATE NOT NULL,
     Capacity INT(3) UNSIGNED NOT NULL,
     AbstractDeadline DATE NOT NULL,
-    PresenterList VARCHAR(255) NOT NULL,
-    FacultyList VARCHAR(255) NOT NULL,
-    SponsorList VARCHAR(255) NOT NULL,
+    PresenterList VARCHAR(255),
+    FacultyList VARCHAR(255),
+    SponsorList VARCHAR(255),
     Venue VARCHAR(255) NOT NULL,
     PublicEvent BOOLEAN NOT NULL,
-    AbstractID INT(8) UNSIGNED NOT NULL,
-    SponsorID INT(8) UNSIGNED NOT NULL,
-    VenueID INT(8) UNSIGNED NOT NULL,
+    AbstractID VARCHAR(255) NOT NULL,
     OrganizerID INT(8) UNSIGNED NOT NULL,
 
     FOREIGN KEY (AbstractID) REFERENCES Abstract(AbstractID),
-    FOREIGN KEY (SponsorID) REFERENCES Sponsor(SponsorID),
-    FOREIGN KEY (VenueID) REFERENCES Venue(VenueID),
     FOREIGN KEY (OrganizerID) REFERENCES Organizer(OrganizerID),
 
     PRIMARY KEY (EventName)
