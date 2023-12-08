@@ -6,10 +6,12 @@
 	$email = $_SESSION['email'];
 	$q = "SELECT * FROM users WHERE Email = '$email'";
 	$query = mysqli_query($cons, $q);
-	while ($result = mysqli_fetch_array($query, MYSQLI_ASSOC))   {
-		$userID = $result["UserID"];
-	}
+	
+
+	$result = mysqli_fetch_array($query, MYSQLI_ASSOC);
+	$userID = $result["UserID"];
 	$_SESSION['userID'] = $userID;
+	
 
 	$q = "SELECT * FROM organizer WHERE UserID = '$userID'";
 	$query = mysqli_query($cons, $q);
