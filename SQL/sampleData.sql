@@ -45,9 +45,9 @@ VALUES
 
 /* Abstract table */
 INSERT INTO Abstract
-(AbstractID, Title, Content, AbstractType, SubjectArea, PresenterID, EventID, ReviewerID)
+(AbstractID, AbstractClosed, Title, Content, AbstractType, SubjectArea, PresenterID, EventID, ReviewerID)
 VALUES
-(48653897, 'Roundabout', 'This is some content', 'Oral Talk', 'International Studies and Languages', 87654321, 93849097, 93263216);
+(48653897, TRUE, 'Roundabout', 'This is some content', 'Oral Talk', 'International Studies and Languages', 87654321, 93849097, 93263216);
 
 /* Presents table */
 INSERT INTO Presents

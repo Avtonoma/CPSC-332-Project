@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS Reviewer
 CREATE TABLE IF NOT EXISTS Abstract
 (
     AbstractID VARCHAR(255) NOT NULL,
+    AbstractClosed BOOLEAN NOT NULL,
     Title VARCHAR(20) NOT NULL,
     Content VARCHAR(255) NOT NULL, /* Do we need this? What is this column? */
     AbstractType VARCHAR(15) NOT NULL,
