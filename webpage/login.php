@@ -6,7 +6,6 @@
     <title>Login</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="webpage/style.css">
 </head>
 
 <body>
@@ -38,20 +37,20 @@
     <?php 
 		if(isset($_POST["btn1"])) { 
 			include("connect.php"); 
+            session_start();
 			$email=$_POST['email']; 
 			$psswrd=$_POST['psswrd']; 
 	
             // configure query to check if email & password exist in database users.
-			$q="SELECT * FROM Users WHERE UserPassword = '$psswrd' AND Email = 'Email'"; 
-            $query = mysqli_query($con,$q);
+			$q="SELECT * FROM Users WHERE UserPassword = '$psswrd' AND Email = '$email'"; 
+            $query = mysqli_query($cons,$q);
             $query = mysqli_fetch_assoc($query);
-            $result = $query['email'];
+            $result = $query['Email'];
 
 
-			if($result == null){
-                // check for valid login before sending to home.
-                $url = "home.php?email=$email";
-			    header("location:".$url);
+			if($result != null){
+                $_SESSION['email'] = $result;
+			    header("location:home.php");
             }
 		} 
         else if(isset($_POST["btn2"])) { 

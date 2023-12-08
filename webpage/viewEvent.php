@@ -1,10 +1,8 @@
 <?php 
-	include("connect.php"); 
-	if(isset($_GET['id']))  
-    { 
-        $q = "SELECT * FROM Events WHERE Id='".$_GET['id']."'"; 
-        $query=mysqli_query($con,$q); 
-    } 
+	include("connect.php");
+	$eventName = $_GET['eventName'];
+    $q = "SELECT * FROM aemevent WHERE EventName ='$eventName'"; 
+    $query=mysqli_query($cons,$q); 
 ?> 
 
 <html> 
@@ -17,9 +15,6 @@
 
 	<link rel="stylesheet" href= 
 "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> 
-
-	<link rel="stylesheet"
-		href="webpage/style.css"> 
 </head> 
 
 <body> 
@@ -38,18 +33,18 @@
 
             <?php 
                 // query for all details attached to event
-				while($qq=mysqli_fetch_array($query)) {
+				while($qq=mysqli_fetch_array($query, MYSQLI_ASSOC)) {
             ?>
 
 			<div class="col lg-4"> 
 				<div class="card"> 
 					<div class="card-body"> 
-						<h5 class="card-title"><?php echo $qq['Name']; ?></h5>
-                        <h6 class="card-body"> <?php echo $qq['Description']; ?> </h6> 
+						<h5 class="card-title"><?php echo $qq['EventName']; ?></h5>
+                        <h6 class="card-body"> <?php echo $qq['EventDescription']; ?> </h6> 
                         <a href="submit.php" class="btn btn-group-sm">Submit Abstract</a> 
-						<a href="delete.php?id=<?php echo $qq['Name']; ?>" class="btn btn-group-sm">Delete</a> 
-                        <a href="update.php?id=<?php echo $qq['Name']; ?>" class="btn btn-group-sm">Update</a> 
-                        <a href="addCollab.php?id=<?php echo $qq['Name']; ?>" class="btn btn-group-sm">Add Collaborator</a> 
+						<a href="delete.php?id=<?php echo $qq['EventName']; ?>" class="btn btn-group-sm">Delete</a> 
+                        <a href="update.php?id=<?php echo $qq['EventName']; ?>" class="btn btn-group-sm">Update</a> 
+                        <a href="addCollab.php?id=<?php echo $qq['EventName']; ?>" class="btn btn-group-sm">Add Collaborator</a> 
 					</div> 
 				</div><br> 
 			</div> 
