@@ -28,17 +28,17 @@
 
             <div class="form-group"> 
                 <label>Start Date & Time</label> 
-                <input type="datetime-local" 
+                <input type="date" 
                     class="form-control" 
-                    placeholder="Start Date & Time" 
+                    placeholder="Start Date" 
                     name="sdate"> 
             </div> 
 
             <div class="form-group"> 
                 <label>End Date & Time</label> 
-                <input type="datetime-local" 
+                <input type="date" 
                     class="form-control" 
-                    placeholder="End Date & Time" 
+                    placeholder="End Date" 
                     name="edate"> 
             </div>
             
@@ -61,11 +61,6 @@
             </div>
 
             <div class="form-group">
-                <label>University</label>
-                <input type="text" class="form-control" placeholder="University" name="uni" />
-            </div>
-
-            <div class="form-group">
                 <label>Address</label>
                 <input type="text" class="form-control" placeholder="Address" name="addr" />
             </div>
@@ -83,18 +78,24 @@
 			$desc=$_POST['desc']; 
             $sdate=$_POST['sdate']; 
             $edate=$_POST['edate']; 
-            $edate=$_POST['deadline']; 
+            $deadline=$_POST['deadline']; 
 			$cap=$_POST['cap'];
             $venue=$_POST['venue']; 
-            $uni=$_POST['uni']; 
             $addr=$_POST['addr'];  
 	
-            // configure query to add new event to table
-			$q="insert into testtable(name, 
-			ID,place,senior) 
-			values(5,4,3,2)"; 
+            // configure query to add new event to table\
+            session_start();
+            $email = $_SESSION['email'];
+            $q = "SELECT * FROM Users WHERE Email = '$email'";
+            $query = mysqli_query($cons, $q);
+            while ($result = mysqli_fetch_array($query, MYSQLI_ASSOC))   {
+                $userID = $result["UserID"];
+            }
 
-			mysqli_query($con,$q); 
+			$q="INSERT INTO aemevent(EventName, EventDescription, StartDate, EndDate, Capacity,
+             AbstractDeadline, Venue, OrganizerID)
+            values ('$eName', '$desc', '$sdate', '$edate', '$cap', '$deadline', '$venue', '$userID')"; 
+			mysqli_query($cons,$q); 
 
 			header("location:home.php");
 		} 

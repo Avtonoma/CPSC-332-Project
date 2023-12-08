@@ -1,11 +1,27 @@
 <?php 
-	include("connect.php"); 
+	include("connect.php");
+	session_start(); 
 
 	// Implement login functionality
-	$email = $_GET['email'];
-	$q = "SELECT * FROM aemevent WHERE 'Email' = '$email' ";
-	$query = mysqli_query($cons,$q);
-	$user = mysqli_fetch_array($query);
+	$email = $_SESSION['email'];
+	$q = "SELECT * FROM users WHERE Email = '$email'";
+	$query = mysqli_query($cons, $q);
+	while ($result = mysqli_fetch_array($query, MYSQLI_ASSOC))   {
+		$userID = $result["UserID"];
+	}
+	$_SESSION['userID'] = $userID;
+
+	$q = "SELECT * FROM organizer WHERE UserID = '$userID'";
+	$query = mysqli_query($cons, $q);
+	
+	while ($result = mysqli_fetch_array($query, MYSQLI_ASSOC))   {
+		if($result != null) {
+			$orgID = $result["OrganizerID"];
+			$q = "SELECT * FROM aemevent WHERE OrganizerID = '$orgID' ";
+			$query = mysqli_query($cons, $q);
+		}
+	}
+
 ?> 
 
 <html> 
@@ -14,13 +30,10 @@
 	<meta http-equiv="Content-Type"
 		content="text/html; charset=UTF-8"> 
 
-	<title>View List</title> 
+	<title>Home</title> 
 
 	<link rel="stylesheet" href= 
 "https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> 
-
-	<link rel="stylesheet"
-		href="webpage/style.css"> 
 </head> 
 
 <body> 
@@ -29,9 +42,9 @@
 		<div class="row"> 
 			<div class="col-lg-8"> 
 				<h1>Event Manager</h1> 
-				<h3><?php $user['FirstName']; ?></h3> 
+				<h3><?php echo $email ?></h3> 
 				<a href="createEvent.php" class="btn btn-group-sm">Create Event</a> 
-				<a href="Events.php" class="btn btn-group-sm">Join Events</a>
+				<a href="EventsList.php" class="btn btn-group-sm">Join Events</a> <br>
 				<hr> 
 				<h3>Your Events</h3>
 			</div>  
@@ -41,16 +54,16 @@
 
             <?php 
                 // query for all events attached to user
-                while($qq=mysqli_fetch_array($query)) {
+                while($qq=mysqli_fetch_array($query, MYSQLI_ASSOC)) {
             ?>
 
 			<div class="col-lg-4"> 
 				<div class="card"> 
 					<div class="card-body"> 
                         <!-- Create query for event list-->
-						<h5 class="card-title"><?php echo $qq['Name']; ?></h5> 
-						<h6 class="card-body"><?php echo $qq['Description']; ?></h6>
-                        <a href="viewEvent.php?id=<?php echo $qq['Name']; ?>" class="btn btn-primary">Event Details</a> <br>
+						<h5 class="card-title"><?php echo $qq['EventName']; ?></h5> 
+						<h6 class="card-body"><?php echo $qq['EventDescription']; ?></h6>
+                        <a href="viewEvent.php?eventName=<?php echo $qq['EventName']; ?>" class="btn btn-primary">Event Details</a> <br>
 					</div> 
 				</div><br> 
 			</div> 

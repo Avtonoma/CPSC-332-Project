@@ -6,7 +6,6 @@
     <title>Sign Up</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="webpage/style.css">
 </head>
 
 <body>
@@ -46,22 +45,30 @@
     </div>
 
     <?php 
+        session_start();
+
 		if(isset($_POST["btn1"])) { 
-			include("connect.php"); 
+			include("connect.php");
 			$fName=$_POST['fName']; 
 			$lName=$_POST['lName']; 
             $phone=$_POST['phone']; 
             $email=$_POST['email']; 
-			$psswrd=$_POST['psswrd']; 
+			$psswrd=$_POST['psswrd'];
+            $userID = uniqid();
+            $orgID = uniqid();
 	
             // configure query to check if email & password exist in database users.
-			$q="INSERT into Users(FirstName, 
+			$q="INSERT into Users(UserID, FirstName, 
 			LastName,Email,UserPassword, PhoneNumber) 
-			values('$fName', '$lName', '$email', '$psswrd', '$phone')"; 
+			values('$userID', '$fName', '$lName', '$email', '$psswrd', '$phone')"; 
 
-			mysqli_query($con,$q); 
+			mysqli_query($cons,$q);
 
-			header("location:home.php? email = $email");
+            $q="INSERT INTO organizer(OrganizerID, UserID) values ('$orgID', '$userID')";
+            mysqli_query($cons,$q);
+         
+            $_SESSION['email'] = $_POST['email'];
+			header("location:home.php");
 		} 
 	?>
 </body>
