@@ -49,6 +49,7 @@
             $result = $query['Email'];
             $_SESSION['email'] = $result;
 			header("location:home.php");
+
 		} 
         else if(isset($_POST["btn2"])) { 
 			include("connect.php"); 

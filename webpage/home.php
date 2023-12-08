@@ -4,25 +4,12 @@
 
 	// Implement login functionality
 	$email = $_SESSION['email'];
-	//$q = "SELECT * FROM users WHERE Email = '$email'";
-	//$query = mysqli_query($cons, $q);
-	//
-	//$result = mysqli_fetch_array($query, MYSQLI_ASSOC);
-	//$userID = $result["UserID"];
-	//$_SESSION['userID'] = $userID;
-	//
-//
-	//$q = "SELECT * FROM organizer WHERE UserID = '$userID'";
-	//$query = mysqli_query($cons, $q);
-	//
-	//while ($result = mysqli_fetch_array($query, MYSQLI_ASSOC))   {
-	//	if($result != null) {
-	//		$orgID = $result["OrganizerID"];
-	//		$q = "SELECT * FROM aemevent WHERE OrganizerID = '$orgID' ";
-	//		$query = mysqli_query($cons, $q);
-	//	}
-	//}
-
+	$q = "SELECT *
+	FROM users
+	JOIN organizer ON users.UserID
+	JOIN aemevent ON organizer.OrganizerID
+	WHERE Email = '$email'";
+	$query = mysqli_query($cons, $q);
 ?> 
 
 <html> 
@@ -46,7 +33,6 @@
 				<h3><?php $email ?></h3> 
 				<a href="createEvent.php" class="btn btn-group-sm">Create Event</a> 
 				<a href="EventsList.php" class="btn btn-group-sm">Join Events</a> <br>
-				<h5><?php $email ?></h5>
 				<hr> 
 				<h3>Your Events</h3>
 			</div>  

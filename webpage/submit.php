@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Create Event</title>
+    <title>Create Abstract</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="webpage/style.css">
@@ -12,7 +12,7 @@
 <body>
     <div class="container mt-6">
         <h1>Submit Abstract</h1>
-        <form action="createEvent.php" method="POST">
+        <form action="submit.php" method="POST">
 
             <div class="form-group">
                 <label>Title</label>
@@ -46,7 +46,7 @@
             <div class="form-group"> 
                 <label>Subject</label> 
                 <select class="form-control" 
-                    name="type"> 
+                    name="subject"> 
                     <option value="0"> 
                         Behavioral or Social Sciences
                     </option> 
@@ -116,7 +116,7 @@
 
             <div class="form-group">
                 <label>Primary presenter's institution</label>
-                <input type="text" class="form-control" placeholder="institution" name="pinstit" />
+                <input type="text" class="form-control" placeholder="institution" name="pInstit" />
             </div>
 
             <div class="form-group">
@@ -131,7 +131,7 @@
 
             <div class="form-group">
                 <label>Faculty mentor's Institutions</label>
-                <input type="text" class="form-control" placeholder="institutions" name="finstit" />
+                <input type="text" class="form-control" placeholder="institutions" name="fInstit" />
             </div>
 
             <!-- add function to add additional presenters -->
@@ -140,27 +140,32 @@
                 <input type="submit" value="Create Abstract" class="btn btn-danger" name="btn1">
             </div>
         </form>
+
     </div>
 
     <?php 
 		if(isset($_POST["btn1"])) { 
 			include("connect.php"); 
-			$eName=$_POST['eName']; 
-			$desc=$_POST['desc']; 
-            $sdate=$_POST['sdate']; 
-            $edate=$_POST['edate']; 
-            $edate=$_POST['deadline']; 
-			$cap=$_POST['cap'];
-            $venue=$_POST['venue']; 
-            $uni=$_POST['uni']; 
-            $addr=$_POST['addr'];  
+			$title=$_POST['title']; 
+			$abstr=$_POST['abstract']; 
+            $type=$_POST['type']; 
+            $subject=$_POST['subject']; 
+            $pName=$_POST['pName']; 
+            $pEmail=$_POST['pEmail']; 
+			$pInstit=$_POST['pInstit'];
+            $fName=$_POST['fName']; 
+            $fEmail=$_POST['fEmail']; 
+            $fInstit=$_POST['fInstit'];
+            $abstrID = uniqid();
+            $presID = 87654321;
+            $eventID = 93849097;
+            $ReviewID = 9326216;  
 	
             // configure query to add new event to table
-			$q="insert into testtable(name, 
-			ID,place,senior) 
-			values(5,4,3,2)"; 
-
-			mysqli_query($con,$q); 
+			$q="INSERT into abstract(AbstractID, Title, 
+			Content,AbstractType, SubjectArea, PresenterID, EventID, ReviewerID) 
+			values('$abstrID','$title', '$abstr', '$type', '$subject', '$presID', '$eventID', '$ReviewID')"; 
+			mysqli_query($cons,$q); 
 
 			header("location:home.php");
 		} 

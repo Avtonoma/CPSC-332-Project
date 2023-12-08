@@ -95,7 +95,7 @@
 			$q="INSERT INTO aemevent(EventName, EventDescription, StartDate, EndDate, Capacity,
              AbstractDeadline, Venue, OrganizerID)
             values ('$eName', '$desc', '$sdate', '$edate', '$cap', '$deadline', '$venue', '$userID')"; 
-			mysqli_query($cons,$q); 
+			mysqli_query($cons,$q);
 
 			header("location:home.php");
 		} 
