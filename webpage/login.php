@@ -44,13 +44,11 @@
             // configure query to check if email & password exist in database users.
 			$q="SELECT * FROM Users WHERE UserPassword = '$psswrd' AND Email = '$email'"; 
             $query = mysqli_query($cons,$q);
-            $query = mysqli_fetch_assoc($query);
+            $query = mysqli_fetch_array($query, MYSQLI_ASSOC);
 
-			if($query != null){
-                $result = $query['email'];
-                $_SESSION['email'] = $result;
-			    header("location:home.php");
-            }
+            $result = $query['Email'];
+            $_SESSION['email'] = $result;
+			header("location:home.php");
 		} 
         else if(isset($_POST["btn2"])) { 
 			include("connect.php"); 
