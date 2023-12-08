@@ -45,10 +45,9 @@
 			$q="SELECT * FROM Users WHERE UserPassword = '$psswrd' AND Email = '$email'"; 
             $query = mysqli_query($cons,$q);
             $query = mysqli_fetch_assoc($query);
-            $result = $query['Email'];
 
-
-			if($result != null){
+			if($query != null){
+                $result = $query['email'];
                 $_SESSION['email'] = $result;
 			    header("location:home.php");
             }
